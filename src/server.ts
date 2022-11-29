@@ -12,17 +12,9 @@ app.use(cors());
 
 router.get('/', (req, res) => {
     res.json({
-        'hello': 'hello',
+        'hello': '123',
     })
 })
-
-router.get('/goods/', goodController.getAll)
-router.get('/goods/:goodId', goodController.getOne)
-router.post('/goods/', goodController.add);
-router.delete('/goods/:goodId', goodController.remove);
-
-router.get('/colors/', colorsController.getAll);
-router.get('/colors/:colorId', colorsController.getOne);
 
 app.use('/.netlify/functions/server', router);
 
