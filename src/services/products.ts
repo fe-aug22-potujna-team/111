@@ -17,7 +17,7 @@ export const getProductsByQuery = async (
     perPage: ProductsPerPage = ProductsPerPage.TwentyFour
 ) => {
   let products = await getAllProducts(ALL_PHONES_PATH);
-  const productsQuantity = products?.length;
+  const productsQuantity = products && products.length;
 
   if (!products) {
     return null;
