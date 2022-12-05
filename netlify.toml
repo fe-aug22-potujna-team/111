@@ -4,4 +4,4 @@
 
 [functions]
   directory = "src"
-  included_files = ["src/api/**"]
+  included_files = ["src/api/**/*", "public/**/*"]
