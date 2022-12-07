@@ -1,7 +1,8 @@
 import express from 'express';
-import * as goodController from '../controllers/products';
+import * as productController from '../controllers/products';
 
 export const router = express.Router();
 
-router.get('/', goodController.getAll)
+router.get('/', productController.getAll)
+router.get('/:productId', productController.getById)
 

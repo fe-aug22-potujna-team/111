@@ -16,6 +16,7 @@ export const handler = serverless(app);
 // For development testing:
 
 // app.use('/products', productRouter);
+// app.use(express.static('dist'))
 //
 // app.listen(5000, () => {
 //   console.log('Server started');

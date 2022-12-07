@@ -16,3 +16,15 @@ export const getAll = async (req: Request, res: Response) => {
 
   res.send(productsData);
 }
+
+export const getById = async (req: Request, res: Response) => {
+  try {
+    const { productId } = req.params;
+    const productData = await productsServices.getProductById(productId)
+
+    res.send(productData);
+  } catch (err) {
+    res.sendStatus(404)
+  }
+
+}

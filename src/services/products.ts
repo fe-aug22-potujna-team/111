@@ -4,11 +4,12 @@ import {SortType} from '../types/SortType';
 import {ProductsPerPage} from "../types/ProductsPerPage";
 
 const ALL_PHONES_PATH = 'src/api/phones.json';
+const EXTEND_PHONES_PATH = 'src/api/phones/';
 
-const getAllProducts = async (path: string): Promise<Product[] | null> => {
-  const products = fs.readFileSync(path, 'utf-8');
+const readJsonFile = async (path: string): Promise<Product[] | null> => {
+  const data = fs.readFileSync(path, 'utf-8');
 
-  return JSON.parse(products);
+  return JSON.parse(data);
 }
 
 export const getProductsByQuery = async (
@@ -16,7 +17,7 @@ export const getProductsByQuery = async (
     page = 1,
     perPage: ProductsPerPage = ProductsPerPage.TwentyFour
 ) => {
-  let products = await getAllProducts(ALL_PHONES_PATH);
+  let products = await readJsonFile(ALL_PHONES_PATH);
   const productsQuantity = products && products.length;
 
   if (!products) {
@@ -57,5 +58,11 @@ export const getProductsByQuery = async (
     products,
     length: productsQuantity,
   }
+}
+
+export const getProductById = async (productId: string) => {
+  const product = await readJsonFile(`${EXTEND_PHONES_PATH}${productId}.json`)
+
+  return product
 }
 
