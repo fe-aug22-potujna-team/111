@@ -20,7 +20,7 @@ export const getAll = async (req: Request, res: Response) => {
 export const getById = async (req: Request, res: Response) => {
   try {
     const { productId } = req.params;
-    const productData = await productsServices.getProductById(productId)
+    const productData = await productsServices.getProductById(productId);
 
     res.send(productData);
   } catch (err) {
@@ -28,3 +28,23 @@ export const getById = async (req: Request, res: Response) => {
   }
 
 }
+
+export const getNewestProduct = async (req: Request, res: Response) => {
+  try {
+    const products = await productsServices.getNewest();
+
+    res.send(products);
+  } catch (error) {
+    res.sendStatus(404);
+  }
+};
+
+export const getBestDiscountProducts = async (req: Request, res: Response) => {
+  try {
+    const products = await productsServices.getBestPrice();
+
+    res.send(products);
+  } catch (error) {
+    res.sendStatus(404);
+  }
+};

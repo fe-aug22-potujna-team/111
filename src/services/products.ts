@@ -61,8 +61,53 @@ export const getProductsByQuery = async (
 }
 
 export const getProductById = async (productId: string) => {
-  const product = await readJsonFile(`${EXTEND_PHONES_PATH}${productId}.json`)
+  let product = await readJsonFile(`${EXTEND_PHONES_PATH}${productId}.json`)
 
   return product
+}
+
+export const getNewest = async () => {
+  let products = await readJsonFile(ALL_PHONES_PATH);
+  const length = products && products.length
+
+  if (products) {
+    products = [...products]
+        .sort((productA: Product, productB: Product) => (
+            productB.year - productA.year
+        ))
+  }
+
+  if (products && length !== null && length > 8) {
+    return products.slice(0, 8);
+  }
+
+  if (products && length !== null && length > 8) {
+    return products
+  }
+
+  return null
+}
+
+export const getBestPrice = async () => {
+  let products = await readJsonFile(ALL_PHONES_PATH);
+  const length = products && products.length
+
+  if (products) {
+    products = [...products]
+        .sort((productA: Product, productB: Product) => (
+            (productB.fullPrice - productB.price)
+            - (productA.fullPrice - productA.price)
+        ))
+  }
+
+  if (products && length !== null && length > 8) {
+    return products.slice(0, 8);
+  }
+
+  if (products && length !== null && length > 8) {
+    return products
+  }
+
+  return null
 }
 
