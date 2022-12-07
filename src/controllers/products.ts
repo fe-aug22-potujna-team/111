@@ -1,6 +1,6 @@
-import {Request, Response} from 'express';
-import {SortType} from "../types/SortType";
-import {ProductsPerPage} from "../types/ProductsPerPage";
+import { Request, Response } from 'express';
+import { SortType } from '../types/SortType';
+import { ProductsPerPage } from '../types/ProductsPerPage';
 import * as productsServices from '../services/products';
 
 export const getAll = async (req: Request, res: Response) => {
@@ -9,13 +9,13 @@ export const getAll = async (req: Request, res: Response) => {
   const perPage = req.query.perPage || ProductsPerPage.Sixteen;
 
   const productsData = await productsServices.getProductsByQuery(
-      sort.toLowerCase() as SortType,
-      page,
-      perPage as ProductsPerPage,
+    sort.toLowerCase() as SortType,
+    page,
+    perPage as ProductsPerPage,
   );
 
   res.send(productsData);
-}
+};
 
 export const getById = async (req: Request, res: Response) => {
   try {
@@ -24,10 +24,9 @@ export const getById = async (req: Request, res: Response) => {
 
     res.send(productData);
   } catch (err) {
-    res.sendStatus(404)
+    res.sendStatus(404);
   }
-
-}
+};
 
 export const getNewestProduct = async (req: Request, res: Response) => {
   try {

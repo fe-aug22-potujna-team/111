@@ -1,7 +1,7 @@
 import fs from 'fs';
-import {Product} from '../types/Product';
-import {SortType} from '../types/SortType';
-import {ProductsPerPage} from "../types/ProductsPerPage";
+import { Product } from '../types/Product';
+import { SortType } from '../types/SortType';
+import { ProductsPerPage } from '../types/ProductsPerPage';
 
 const ALL_PHONES_PATH = 'src/api/phones.json';
 const EXTEND_PHONES_PATH = 'src/api/phones/';
@@ -10,12 +10,12 @@ const readJsonFile = async (path: string): Promise<Product[] | null> => {
   const data = fs.readFileSync(path, 'utf-8');
 
   return JSON.parse(data);
-}
+};
 
 export const getProductsByQuery = async (
-    sort: SortType,
-    page = 1,
-    perPage: ProductsPerPage = ProductsPerPage.TwentyFour
+  sort: SortType,
+  page = 1,
+  perPage: ProductsPerPage = ProductsPerPage.TwentyFour,
 ) => {
   let products = await readJsonFile(ALL_PHONES_PATH);
   const productsQuantity = products && products.length;
@@ -25,24 +25,24 @@ export const getProductsByQuery = async (
   }
 
   products = [...products]
-      .sort((productA, productB): number => {
-        switch(sort) {
-          case SortType.Newest:
-            return productA.year - productB.year;
+    .sort((productA, productB): number => {
+      switch (sort) {
+        case SortType.Newest:
+          return productA.year - productB.year;
 
-          case SortType.Alphabetically:
-            return productA.name.localeCompare(productB.name);
+        case SortType.Alphabetically:
+          return productA.name.localeCompare(productB.name);
 
-          case SortType.Cheapest:
-            return productA.price - productB.price;
+        case SortType.Cheapest:
+          return productA.price - productB.price;
 
-          case SortType.Expensive:
-            return productB.price - productA.price;
+        case SortType.Expensive:
+          return productB.price - productA.price;
 
-          default:
-            return 0
-        }
-  });
+        default:
+          return 0;
+      }
+    });
 
   if (perPage !== ProductsPerPage.All) {
     const numPerPage = +perPage;
@@ -57,24 +57,24 @@ export const getProductsByQuery = async (
   return {
     products,
     length: productsQuantity,
-  }
-}
+  };
+};
 
 export const getProductById = async (productId: string) => {
-  let product = await readJsonFile(`${EXTEND_PHONES_PATH}${productId}.json`)
+  const product = await readJsonFile(`${EXTEND_PHONES_PATH}${productId}.json`);
 
-  return product
-}
+  return product;
+};
 
 export const getNewest = async () => {
   let products = await readJsonFile(ALL_PHONES_PATH);
-  const length = products && products.length
+  const length = products && products.length;
 
   if (products) {
     products = [...products]
-        .sort((productA: Product, productB: Product) => (
-            productB.year - productA.year
-        ))
+      .sort((productA: Product, productB: Product) => (
+        productB.year - productA.year
+      ));
   }
 
   if (products && length !== null && length > 8) {
@@ -82,22 +82,22 @@ export const getNewest = async () => {
   }
 
   if (products && length !== null && length > 8) {
-    return products
+    return products;
   }
 
-  return null
-}
+  return null;
+};
 
 export const getBestPrice = async () => {
   let products = await readJsonFile(ALL_PHONES_PATH);
-  const length = products && products.length
+  const length = products && products.length;
 
   if (products) {
     products = [...products]
-        .sort((productA: Product, productB: Product) => (
-            (productB.fullPrice - productB.price)
+      .sort((productA: Product, productB: Product) => (
+        (productB.fullPrice - productB.price)
             - (productA.fullPrice - productA.price)
-        ))
+      ));
   }
 
   if (products && length !== null && length > 8) {
@@ -105,9 +105,8 @@ export const getBestPrice = async () => {
   }
 
   if (products && length !== null && length > 8) {
-    return products
+    return products;
   }
 
-  return null
-}
-
+  return null;
+};
